@@ -2,10 +2,20 @@
 
 @section('content')
     <div class="container my-5">
-        
+
         <section>
             <h1 class="text-center text-2xl font-bold">{{ $project->title }}</h1>
-            
+
+            <a href="{{ route('projects.edit', $project) }}" class="btn btn-primary">Modifica</a>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ConfirmModal">
+                Elimina
+            </button>
+            {{-- <form action={{route('projects.destroy', $project) }} method="POST">
+                @csrf
+                @method('DELETE')
+                <input type="submit" class="btn btn-secondary" value="elimina">
+            </form> --}}
+
 
             <div class="container">
                 <div class="d-flex flex-wrap mt-4 p-4 rounded-4 shadow-lg">
@@ -27,5 +37,28 @@
             </div>
         </section>
 
+    </div>
+
+    <div class="modal fade" id="ConfirmModal" tabindex="-1" aria-labelledby="ConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="ConfirmModalLabel">Conferma Eliminazione</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Sei sicuro di voler eliminare il progetto "{{ $project->title }}"? Questa azione non può essere
+                    annullata.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Annulla</button>
+                    <form action="{{ route('projects.destroy', $project) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Elimina definitivamente</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
