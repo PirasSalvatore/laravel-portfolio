@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    //
+    //collegamento con i tipi
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
 }
