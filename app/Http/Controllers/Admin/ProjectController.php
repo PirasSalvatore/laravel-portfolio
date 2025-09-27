@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
@@ -53,6 +55,18 @@ class ProjectController extends Controller
         //$newProject->technologies_used = $data['technologies_used'];
         $newProject->type_id = $data['type_id'];
         $newProject->description = $data['description'];
+
+        //controllo se ho ricevuto un'immagine
+        if(array_key_exists('image',$data)){
+            //dd($data['image']);
+            $img_path = Storage::putFile('projectsImg', $data['image']);
+            //dd($img_path);
+
+            $newProject->image = $img_path;
+        }
+
+
+        //dd($data);
 
         $newProject->save();
 
@@ -103,6 +117,21 @@ class ProjectController extends Controller
         $project->type_id = $data['type_id'];
         $project->description = $data['description'];
 
+
+        //controllo se ho ricevuto un'immagine
+        if (array_key_exists('image', $data)) {
+            //eliminare l'immagine precedente se esiste
+            Storage::delete($project->image);
+
+            //caricare la nuova immagine
+            $img_path = Storage::putFile('projectsImg', $data['image']);
+
+            //aggiornare il percorso dell'immagine nel progetto
+            $project->image = $img_path;
+        }
+
+        //dd($data);
+
         $project->update();
 
         //verifichiamo se stiamo ricevendo le tecnologie
@@ -123,6 +152,14 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        // Elimina le relazioni con le tecnologie
+        $project->technologies()->detach();
+        
+        //prima di eliminare il progetto, elimino l'immagine associata se esiste
+        if($project->image){
+            Storage::delete($project->image);
+        }
+        //dd($project);
         $project->delete();
 
         return redirect()->route('projects.index');

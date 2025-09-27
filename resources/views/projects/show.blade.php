@@ -6,14 +6,16 @@
         <section>
             <h1 class="text-center text-2xl font-bold">{{ $project->title }}</h1>
 
-            <a href="{{ route('projects.edit', $project) }}" class="btn btn-primary">Modifica</a>
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ConfirmModal">
-                Elimina
-            </button>
+
 
 
             <div class="container">
                 <div class="d-flex flex-wrap mt-4 p-4 rounded-4 shadow-lg">
+                    @if ($project->image)
+                        <div class="col-12 text-center">
+                            <img src="{{ asset('storage/' . $project->image) }}" alt="copertina">
+                        </div>
+                    @endif
                     <div class="col-3 mt-4">
                         <strong>Technologies:</strong>
                         @forelse ($project->technologies as $technology)
@@ -40,6 +42,12 @@
                     <div class="col-12 mt-4">
                         <p class="">{{ $project->description }}</p>
                     </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <a href="{{ route('projects.edit', $project) }}" class="btn btn-primary">Modifica</a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ConfirmModal">
+                        Elimina
+                    </button>
                 </div>
             </div>
         </section>

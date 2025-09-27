@@ -4,7 +4,7 @@
     <section>
         <h1>Modifica un progetto</h1>
 
-        <form action="{{ route('projects.update', $project) }}" method="POST">
+        <form action="{{ route('projects.update', $project) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -46,6 +46,18 @@
                     @endforeach
                 </select>
             </div>
+
+            <div class="form-control mb-3 d-flex flex-column">
+                <label for="image" class="form-label">Immagine</label>
+                <input type="file" name="image" id="image" class="form-input">
+
+                @if ($project->image)
+                    <div class="col-12 text-end">
+                        <img class="img-fluid w-25" src="{{ asset('storage/' . $project->image) }}" alt="copertina">
+                    </div>
+                @endif
+            </div>
+
             <div class="form-control mb-3 d-flex flex-column">
                 <label for="description" class="form-label">Descrizione del progetto</label>
                 <textarea name="description" id="description" rows="3" class="form-input" required>{{ $project->description }}</textarea>
