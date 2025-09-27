@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TypeController;
+use App\Http\Controllers\Admin\TechnologyController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,5 +32,7 @@ Route::middleware(['auth', 'verified'])
 Route::resource('projects', ProjectController::class)->middleware(['auth', 'verified'])->names('projects');
 
 Route::resource('types', TypeController::class)->middleware(['auth', 'verified'])->names('types');
+
+Route::resource('technologies', TechnologyController::class)->middleware(['auth', 'verified'])->names('technologies');
 
 require __DIR__.'/auth.php';

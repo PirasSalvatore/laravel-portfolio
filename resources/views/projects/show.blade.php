@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container my-5">
-
+        {{-- @dd($project->technologies) --}}
         <section>
             <h1 class="text-center text-2xl font-bold">{{ $project->title }}</h1>
 
@@ -10,17 +10,19 @@
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ConfirmModal">
                 Elimina
             </button>
-            {{-- <form action={{route('projects.destroy', $project) }} method="POST">
-                @csrf
-                @method('DELETE')
-                <input type="submit" class="btn btn-secondary" value="elimina">
-            </form> --}}
 
 
             <div class="container">
                 <div class="d-flex flex-wrap mt-4 p-4 rounded-4 shadow-lg">
                     <div class="col-3 mt-4">
-                        <strong>Technologies:</strong> {{ $project->technologies_used }}
+                        <strong>Technologies:</strong>
+                        @forelse ($project->technologies as $technology)
+                            <span class="badge me-2" style="background-color: {{ $technology->color }}; color: white;">
+                                {{ $technology->name }}
+                            </span>
+                        @empty
+                            <span>No technologies assigned</span>
+                        @endforelse
                     </div>
 
                     <div class="col-3 mt-4">

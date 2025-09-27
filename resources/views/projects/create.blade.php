@@ -23,9 +23,15 @@
                 <label for="end_date" class="form-label">Data di fine</label>
                 <input type="date" name="end_date" id="end_date" class="form-input" required>
             </div>
-            <div class="form-control mb-3 d-flex flex-column">
-                <label for="technologies_used" class="form-label">Tecnologie utilizzate</label>
-                <input type="text" name="technologies_used" id="technologies_used" class="form-input">
+            <div class="form-control mb-3 d-flex flex-wrap">
+                <label class="form-label w-100">Tecnologie utilizzate:</label>
+                @foreach ($technologies as $technology)
+                    <div class="technology me-2">
+                        <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
+                            value="{{ $technology->id }}">
+                        <label for="technology-{{ $technology->id }}" class="me-2">{{ $technology->name }}</label>
+                    </div>
+                @endforeach
             </div>
             <div class="form-control mb-3 d-flex flex-column">
                 <label for="type_id" class="form-label">Tipologia Progetto</label>

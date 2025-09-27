@@ -29,7 +29,7 @@ class ProjectsTableSeeder extends Seeder
             $project->client = $faker->optional()->company();
             $project->start_date = $faker->dateTimeBetween('-1 year', 'now');
             $project->end_date = $faker->dateTimeBetween($project->start_date, 'now');
-            $project->technologies_used = $faker->words(3, true);
+            //$project->technologies_used = $faker->words(3, true);
             $project->type_id = $faker->numberBetween(2, $typeCount);
             $project->description = $faker->paragraph(5);
 

@@ -20,10 +20,12 @@
                     <tr>
                         <td>{{ $type->name }}</td>
                         <td class="text-end">
-                            <a href="{{ route('types.show', $type) }}" class="btn btn-sm btn-info"><i
-                                    class="bi bi-eye"></i></a>
-                            <a href="{{ route('types.edit', $type) }}" class="btn btn-sm btn-warning"><i
-                                    class="bi bi-pencil-fill"></i></a>
+                            <a href="{{ route('types.show', $type) }}" class="btn btn-sm btn-info">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{ route('types.edit', $type) }}" class="btn btn-sm btn-warning">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#ConfirmModal{{ $type->id }}">
                                 <i class="bi bi-trash"></i>

@@ -4,6 +4,10 @@
     <section>
         <h1 class="text-center text-2xl font-bold mb-4 mt-4">Progetti</h1>
 
+        <div class="text-center mb-4">
+            <a class="btn btn-primary" href="{{ route('projects.create') }}">Aggiungi nuovo progetto</a>
+        </div>
+
         <div class="container">
             <table class="table table-dark table-striped">
                 <thead>
@@ -20,7 +24,18 @@
                     @foreach ($projects as $project)
                         <tr>
                             <td>{{ $project->title }}</td>
-                            <td>{{ $project->technologies_used }}</td>
+                            <td>
+                                <div class="d-flex flex-wrap">
+                                    @forelse ($project->technologies as $technology)
+                                        <span class="badge me-2"
+                                            style="background-color: {{ $technology->color }}; color: white;">
+                                            {{ $technology->name }}
+                                        </span>
+                                    @empty
+                                        <span>No technologies assigned</span>
+                                    @endforelse
+                                </div>
+                            </td>
                             <td>{{ strtotime($project->end_date) < strtotime(date('Y-m-d')) ? 'Sì' : 'No' }}</td>
                             <td>
                                 <a href="{{ route('projects.show', $project) }}" class="btn btn-success">
@@ -65,9 +80,7 @@
                 </tbody>
             </table>
 
-            <div>
-                <a href="{{ route('projects.create') }}">Aggiungi nuovo progetto</a>
-            </div>
+
         </div>
     </section>
 @endsection
